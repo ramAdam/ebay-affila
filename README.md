@@ -1,4 +1,4 @@
-# eBay Clone / (ebay-clone)
+# eBay Affilate
 
 ### Learn how to build this!
 
