@@ -14,6 +14,7 @@ git clone https://github.com/John-Weeks-Dev/ebay-clone.git
 To run this fork, do the following:
 
 ```
+```
 npm i
 npm run dev
 ```
