@@ -11,7 +11,7 @@ import moment from "moment";
 
 export default function TopMenu() {
 
-    const { user } = useUser() 
+    const { user } = useUser()
     const [orders, setOrders] = useState([])
 
     const getOrders = async () => {
@@ -31,7 +31,7 @@ export default function TopMenu() {
         useIsLoading(true)
         getOrders()
     }, [user])
-    
+
 
     return (
         <>
@@ -39,14 +39,14 @@ export default function TopMenu() {
                 <div id="OrdersPage" className="mt-4 max-w-[1200px] mx-auto px-2 min-h-[50vh]">
                     <div className="bg-white w-full p-6 min-h-[150px]">
                         <div className="flex items-center text-xl">
-                            <CiDeliveryTruck className="text-green-500" size={35}/>
+                            <CiDeliveryTruck className="text-green-500" size={35} />
                             <span className="pl-4">Orders</span>
                         </div>
                         {orders.length < 1 ?
                             <div className="flex items-center justify-center">
                                 You have no order history
                             </div>
-                        : null}
+                            : null}
 
                         {orders.map(order => (
                             <div key={order?.id} className="text-sm pl-[50px]">
@@ -80,11 +80,11 @@ export default function TopMenu() {
                                     <div className="flex items-center gap-4">
                                         {order?.orderItem.map(item => (
                                             <div key={item.id} className="flex items-center">
-                                                <Link 
-                                                    className="py-1 hover:underline text-blue-500 font-bold" 
+                                                <Link
+                                                    className="py-1 hover:underline text-blue-500 font-bold"
                                                     href={`/product/${item.product_id}`}
                                                 >
-                                                    <img className="rounded" width="120" src={item.product.url+'/120'} />
+                                                    <img className="rounded" width="120" src={item.product.url} />
                                                     {item.product.title}
                                                 </Link>
                                             </div>
@@ -98,5 +98,4 @@ export default function TopMenu() {
             </MainLayout>
         </>
     )
-  }
-  
+}
