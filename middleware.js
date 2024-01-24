@@ -1,25 +1,34 @@
 import { createMiddlewareClient } from '@supabase/auth-helpers-nextjs'
 import { NextResponse } from 'next/server'
 
+// export async function middleware(req) {
+//   const res = NextResponse.next()
+//   const supabase = createMiddlewareClient({ req, res })
+//   const { data } = await supabase.auth.getSession()
+
+//   if (data?.session && req.nextUrl.pathname.startsWith('/auth')) {
+//     return NextResponse.redirect(new URL('/', req.url))
+//   }
+
+//   // Must be a session to see these routes
+//   if (
+//     !data?.session && (
+//     req.nextUrl.pathname.startsWith('/checkout') ||
+//     req.nextUrl.pathname.startsWith('/success') ||
+//     req.nextUrl.pathname.startsWith('/orders') ||
+//     req.nextUrl.pathname.startsWith('/address')
+//   )) {
+//     return NextResponse.redirect(new URL('/auth', req.url))
+//   }
+
+//   return res
+// }
 export async function middleware(req) {
   const res = NextResponse.next()
-  const supabase = createMiddlewareClient({ req, res })
-  const { data } = await supabase.auth.getSession()
+  const fakeUser = { id: 'fakeUserId', name: 'Fake User' }
 
-  if (data?.session && req.nextUrl.pathname.startsWith('/auth')) {
-    return NextResponse.redirect(new URL('/', req.url))
-  }
-
-  // Must be a session to see these routes
-  if (
-    !data?.session && (
-    req.nextUrl.pathname.startsWith('/checkout') ||
-    req.nextUrl.pathname.startsWith('/success') ||
-    req.nextUrl.pathname.startsWith('/orders') ||
-    req.nextUrl.pathname.startsWith('/address')
-  )) {
-    return NextResponse.redirect(new URL('/auth', req.url))
-  }
+  // Set the fake user in the request object
+  req.user = fakeUser
 
   return res
 }

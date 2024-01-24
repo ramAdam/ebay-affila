@@ -15,54 +15,42 @@ const Provider = ({ children }) => {
   const [name, setName] = useState(null);
   const [picture, setPicture] = useState(null);
 
-  const supabaseClient = createClientComponentClient()
-
-  const getCurrentSession = async () => {
-    const res = await supabaseClient.auth.getSession()
-    if (res && res.data.session) { 
-      return res.data.session
-    } 
-    clearUser()
-    return null
-  }
-
-  const getCurrentUser = async () => {
-    if (id) return
-    
-    const res = await supabaseClient.auth.getUser()
-    if (res && res.data.user) {
-
-      const theUser = res.data.user
-
-      setUser(theUser)
-      setId(theUser.id)
-      setEmail(theUser.email)
-      setName(theUser.identities[0].identity_data.name)
-      setPicture(theUser.identities[0].identity_data.picture)
-    }
-  }
+  // Remove the Supabase client code
 
   useEffect(() => {
-    const isUser = async () => {
-      const currentSession = await getCurrentSession()
-      if (currentSession) await getCurrentUser()
-    }
-    isUser()
-  }, [])
+    // Simulate fetching user data
+    const fetchUser = async () => {
+      // Simulate API call to get user data
+      const fakeUser = {
+        id: "123",
+        email: "fakeuser@example.com",
+        name: "Fake User",
+        picture: "https://example.com/fakeuser.jpg"
+      };
+
+      setUser(fakeUser);
+      setId(fakeUser.id);
+      setEmail(fakeUser.email);
+      setName(fakeUser.name);
+      setPicture(fakeUser.picture);
+    };
+
+    fetchUser();
+  }, []);
 
   const signOut = async () => {
-    await supabaseClient.auth.signOut()
-    clearUser()
-    router.push('/')
-  }
+    // Simulate sign out
+    clearUser();
+    router.push('/');
+  };
 
   const clearUser = () => {
-    setUser(null)
-    setId(null)
-    setEmail(null)
-    setName(null)
-    setPicture(null)
-  }
+    setUser(null);
+    setId(null);
+    setEmail(null);
+    setName(null);
+    setPicture(null);
+  };
 
   const exposed = { user, id, email, name, picture, signOut };
 
